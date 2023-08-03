@@ -1,11 +1,22 @@
-import express from 'express';
+import express from "express";
+import dotenv from "dotenv";
+import morgan from "morgan";
+import routes from "./routes";
+
+dotenv.config();
+
 const app = express();
-const port = 3000;
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+// MIDDLEWARE
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(morgan("dev"));
 
-app.listen(port, () => {
-    return console.log(`Express is listening at http://localhost:${port}`);
+// API
+app.use("/api",routes);
+
+
+// SERVER
+app.listen(3000,'localhost', () => {
+    return console.log("Express is listening at http://localhost/3000");
 });

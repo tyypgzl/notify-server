@@ -5,12 +5,13 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "format:check": "prettier --check .",
-        "format:write": "prettier --write .",
+        "build":"tsc -w",
+        "dev": "nodemon dist/app.js",
         "lint:fix": "eslint --fix ."
     },
     "devDependencies": {
         "@types/express": "^4.17.17",
+        "@types/morgan": "^1.9.4",
         "@types/node": "^20.4.6",
         "@typescript-eslint/eslint-plugin": "^5.52.0",
         "eslint": "^8.46.0",
@@ -19,11 +20,12 @@
         "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
         "eslint-plugin-promise": "^6.0.0",
         "nodemon": "^3.0.1",
-        "prettier": "^3.0.0",
         "ts-node": "^10.9.1",
         "typescript": "*"
     },
     "dependencies": {
-        "express": "^4.18.2"
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "morgan": "^1.10.0"
     }
 }

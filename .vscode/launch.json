@@ -12,21 +12,18 @@
             "type": "node",
             "request": "attach",
             "name": "Attach by Process ID",
-            "processId": "${command:PickProcess}",
+            "processId": "${command:PickProcess}"
         },
         {
             "type": "node",
             "request": "launch",
             "name": "Jest Current File",
             "program": "${workspaceFolder}/node_modules/.bin/jest",
-            "args": [
-                "${fileBasenameNoExtension}",
-                "--detectOpenHandles"
-            ],
+            "args": ["${fileBasenameNoExtension}", "--detectOpenHandles"],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "windows": {
-                "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+                "program": "${workspaceFolder}/node_modules/jest/bin/jest"
             }
         },
         {
@@ -34,13 +31,8 @@
             "request": "launch",
             "name": "Jest all",
             "runtimeExecutable": "npm",
-            "runtimeArgs": [
-                "run-script",
-                "test"
-            ],
-            "skipFiles": [
-                "<node_internals>/**"
-            ]
-        },
+            "runtimeArgs": ["run-script", "test"],
+            "skipFiles": ["<node_internals>/**"]
+        }
     ]
 }
