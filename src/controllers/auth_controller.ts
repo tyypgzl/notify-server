@@ -15,7 +15,11 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
     const accessToken = JWTUtils.signAccessToken(user.id);
 
-    res.status(200).json({ accessToken });
+    res.status(200).json({
+      accessToken: accessToken,
+      message: 'success',
+      status: 200,
+    });
   } catch (err) {
     next(err);
   }
@@ -34,7 +38,9 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     const accessToken = JWTUtils.signAccessToken(savedUser.id);
 
     res.status(201).json({
-      accessToken: accessToken,
+      accessToken,
+      message: 'success',
+      status: 201,
     });
   } catch (error) {
     next(error);
@@ -50,7 +56,12 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
     const deletedUser = await User.findByIdAndDelete(data.aud);
 
     if (!deletedUser) res.status(404).json({ message: 'User not found', status: 404 });
-    res.status(200).json(deletedUser);
+
+    console.log({ message: 'success', status: 200 });
+    res.status(200).json({
+      message: 'success',
+      status: 200,
+    });
   } catch (error) {
     next(error);
   }
