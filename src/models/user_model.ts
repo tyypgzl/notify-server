@@ -12,7 +12,7 @@ interface IUserMethods {
   isValidPassword(password: string): boolean;
 }
 
-type UserModel = Model<IUser, {}, IUserMethods>;
+type UserModel = Model<IUser, object, IUserMethods>;
 
 const userSchema = new Schema<IUser, UserModel, IUserMethods>(
   {

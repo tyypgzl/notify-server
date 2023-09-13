@@ -1,4 +1,4 @@
 export { default as dbConnect } from './db';
-export { JWTUtils } from './jwt';
-export { HashUtils } from './hash';
-export { ValidationUtils } from './validation';
+export * as JWTUtils from './jwt';
+export * as HashUtils from './hash';
+export * as ValidationUtils from './validation';

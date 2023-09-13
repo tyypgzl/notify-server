@@ -3,7 +3,7 @@ module.exports = {
   plugins: ['prettier', '@typescript-eslint'],
   rules: {
     eqeqeq: 'error',
-    'no-console': 'warn',
+    'no-console': 'off',
     'no-undef': 'off',
     'no-unused-vars': 'off',
     'prettier/prettier': 'error',

@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import { Request, Response, ErrorRequestHandler } from 'express';
 import { HttpError } from 'http-errors';
 import { ValidationError } from 'joi';
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 
-const errorHandler = (err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
+const errorHandler = (err: ErrorRequestHandler, req: Request, res: Response) => {
   if (err instanceof HttpError) {
     return res.status(err.status).json({ message: err.message, status: err.status });
   } else if (err instanceof ValidationError) {
