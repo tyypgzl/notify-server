@@ -6,11 +6,13 @@ import { ValidationUtils, JWTUtils } from '../utils';
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await ValidationUtils.auth.validateAsync(req.body);
-    const user = await User.findOne({ email: result.email });
+    const result = ValidationUtils.auth.validate(req.body);
+    const { error } = result;
+    if (error) throw BadRequest();
+    const user = await User.findOne({ email: result.value.email });
     if (!user) throw NotFound('User not registered');
 
-    const isPasswordMatch = await user.isValidPassword(result.password);
+    const isPasswordMatch = await user.isValidPassword(result.value.password);
     if (!isPasswordMatch) throw Unauthorized('Username/Password not valid');
 
     const accessToken = JWTUtils.signAccessToken(user.id);
@@ -27,13 +29,14 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await ValidationUtils.auth.validateAsync(req.body);
-    if (!result.email || !result.password) throw BadRequest();
+    const result = ValidationUtils.auth.validate(req.body);
+    const { value, error } = result;
+    if (error) throw BadRequest();
 
-    const doesExist = await User.findOne({ email: result.email });
-    if (doesExist) throw Conflict(result.email + ' is already exist');
+    const doesExist = await User.findOne({ email: value.email });
+    if (doesExist) throw Conflict(value.email + ' is already exist');
 
-    const user = new User(result);
+    const user = new User(value);
     const savedUser = await user.save();
     const accessToken = JWTUtils.signAccessToken(savedUser.id);
 
