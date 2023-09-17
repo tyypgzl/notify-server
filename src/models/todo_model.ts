@@ -3,7 +3,6 @@ import mongoose, { Model } from 'mongoose';
 const { Schema } = mongoose;
 
 interface ITodo extends mongoose.Document {
-  id: string;
   title: string;
   description?: string;
   colorNumber: number;
@@ -47,7 +46,7 @@ const todoScheme = new Schema<ITodo, TodoModel, ITodoMethods>(
       required: true,
     },
   },
-  { timestamps: true, collection: 'Todo', minimize: true },
+  { collection: 'Todo', minimize: true },
 );
 
 const Todo = mongoose.model<ITodo, TodoModel>('Todo', todoScheme);
