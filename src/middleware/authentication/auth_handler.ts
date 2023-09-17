@@ -9,8 +9,7 @@ const authHandler = (req: Request, res: Response, next: NextFunction) => {
 
     if (!token) throw Unauthorized();
 
-    const data = JWTUtils.verifyAccessToken(token);
-    console.log('JWT', data);
+    JWTUtils.verifyAccessToken(token);
     next();
   } catch (error) {
     next(error);
