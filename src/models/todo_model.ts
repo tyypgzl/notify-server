@@ -3,6 +3,8 @@ import mongoose, { Model } from 'mongoose';
 const { Schema } = mongoose;
 
 interface ITodo extends mongoose.Document {
+  userId: string;
+  id: string;
   title: string;
   description?: string;
   colorNumber: number;
@@ -18,6 +20,14 @@ type TodoModel = Model<ITodo, object, ITodoMethods>;
 
 const todoScheme = new Schema<ITodo, TodoModel, ITodoMethods>(
   {
+    userId: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+      lowercase: true,
+    },
+
     id: {
       type: String,
       required: true,
