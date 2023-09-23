@@ -23,6 +23,8 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
       status: 200,
     });
   } catch (error) {
+    console.log(error);
+
     next(error);
   }
 };
@@ -30,11 +32,26 @@ const addTodo = async (req: Request, res: Response, next: NextFunction) => {
 const getTodos = async (req: Request, res: Response) => {
   const userId = reqToToken(req);
 
-  // const queryActivity = req.query.activity;
-  // const activityInt = parseInt(queryActivity.toString());
-  // const activity = activityInt === 0 ? null : activityInt;
+  const queryActivity = req.query.activity;
+  const activityInt = parseInt(queryActivity.toString());
+  let activity: number | null = null;
 
-  const result = await Todo.find({ userId: userId });
+  switch (activityInt) {
+    case 0:
+      activity = null;
+      break;
+    case 1:
+      activity = 0;
+      break;
+    case 2:
+      activity = 1;
+      break;
+
+    default:
+      break;
+  }
+
+  const result = activity !== null ? await Todo.find({ activity, userId: userId }) : await Todo.find({ userId: userId });
   const todos = result.map(value => {
     const todo = {
       id: value.id,

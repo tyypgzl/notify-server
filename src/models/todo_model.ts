@@ -24,7 +24,6 @@ const todoScheme = new Schema<ITodo, TodoModel, ITodoMethods>(
       type: String,
       required: true,
       trim: true,
-      unique: true,
       lowercase: true,
     },
 
